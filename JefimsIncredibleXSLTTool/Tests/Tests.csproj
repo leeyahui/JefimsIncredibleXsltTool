@@ -57,9 +57,9 @@
     <Compile Include="TagCloserTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\JefimsIncredibleXsltTool\JefimsIncredibleXsltTool.csproj">
+    <ProjectReference Include="..\JefimsIncredibleXsltTool\XsltTool.csproj">
       <Project>{a52ec907-2c6c-4438-a73d-06db1327cb8b}</Project>
-      <Name>JefimsIncredibleXsltTool</Name>
+      <Name>XsltTool</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
