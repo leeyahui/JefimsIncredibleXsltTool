@@ -1,12 +1,6 @@
-﻿using System;
-using System.Linq;
-using System.IO;
-using System.Windows;
-using System.Windows.Input;
-using System.Xml;
-using System.Xml.Linq;
-using ICSharpCode.AvalonEdit;
+﻿using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.CodeCompletion;
+using ICSharpCode.AvalonEdit.Editing;
 using ICSharpCode.AvalonEdit.Folding;
 using ICSharpCode.AvalonEdit.Highlighting;
 using ICSharpCode.AvalonEdit.Highlighting.Xshd;
@@ -14,9 +8,14 @@ using ICSharpCode.AvalonEdit.Search;
 using JefimsIncredibleXsltTool.Lib;
 using Microsoft.Win32;
 using Newtonsoft.Json.Linq;
+using System;
+using System.IO;
+using System.Linq;
+using System.Windows;
+using System.Windows.Input;
+using System.Xml;
+using System.Xml.Linq;
 using ToastNotifications.Messages;
-using System.Windows.Controls;
-using ICSharpCode.AvalonEdit.Editing;
 
 namespace JefimsIncredibleXsltTool
 {
@@ -232,8 +231,6 @@ namespace JefimsIncredibleXsltTool
                 Properties.Settings.Default.xsdPath = _mainViewModel.ValidationSchemaFile;
             }
 
-            Properties.Settings.Default.xsltProcessingMode = (int)_mainViewModel.XsltProcessingMode;
-
             Properties.Settings.Default.Save();
         }
 
@@ -262,8 +259,6 @@ namespace JefimsIncredibleXsltTool
                 var theme = ColorTheme.ColorThemes.FirstOrDefault(t => t.Id == Properties.Settings.Default.theme);
                 theme = theme ?? ColorTheme.DefaultColorTheme;
                 ChangeColorTheme(theme);
-
-                _mainViewModel.XsltProcessingMode = (XsltProcessingMode)Properties.Settings.Default.xsltProcessingMode;
             }
             catch (Exception ex)
             {
@@ -348,7 +343,7 @@ namespace JefimsIncredibleXsltTool
         {
             try
             {
-                SourceXml.Document.Text = _mainViewModel.XsltProcessingMode == XsltProcessingMode.Just ? PrettyJson(SourceXml.Document.Text) : PrettyXml(SourceXml.Document.Text);
+                SourceXml.Document.Text = PrettyXml(SourceXml.Document.Text);
                 _mainViewModel.Notifier.ShowSuccess("Uuuhh, so pretty!");
             }
             catch (Exception ex)
@@ -361,7 +356,7 @@ namespace JefimsIncredibleXsltTool
         {
             try
             {
-                SourceXslt.Document.Text = _mainViewModel.XsltProcessingMode == XsltProcessingMode.Just ? PrettyJson(SourceXslt.Document.Text) : PrettyXml(SourceXslt.Document.Text);
+                SourceXslt.Document.Text = PrettyXml(SourceXslt.Document.Text);
                 _mainViewModel.Notifier.ShowSuccess("It's beautiful!");
             }
             catch (Exception ex)
@@ -370,10 +365,6 @@ namespace JefimsIncredibleXsltTool
             }
         }
 
-        internal static string PrettyJson(string json)
-        {
-            return JToken.Parse(json).ToString(Newtonsoft.Json.Formatting.Indented);
-        }
 
         private static string PrettyXml(string xml)
         {
@@ -391,20 +382,6 @@ namespace JefimsIncredibleXsltTool
             {
                 TextBlockXPath.Text = "Error getting XPath";
             }
-        }
-
-        private void MenuItemLicenses_Click(object sender, RoutedEventArgs e)
-        {
-            new Licenses().ShowDialog();
-        }
-
-        private void MenuItemContributors_Click(object sender, RoutedEventArgs e)
-        {
-            new Contributors().ShowDialog();
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
         }
 
         private void ChangeColorTheme_MouseUp(object sender, MouseButtonEventArgs e)

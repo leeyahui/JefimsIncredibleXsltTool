@@ -1,7 +1,6 @@
 ﻿using ICSharpCode.AvalonEdit.Document;
 using JefimsIncredibleXsltTool.Lib;
 using Microsoft.Win32;
-using Saxon.Api;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,7 +15,6 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Schema;
 using System.Xml.Xsl;
-using JUST;
 using ToastNotifications;
 using ToastNotifications.Lifetime;
 using ToastNotifications.Position;
@@ -35,13 +33,6 @@ namespace JefimsIncredibleXsltTool
         }
     }
 
-    public enum XsltProcessingMode
-    {
-        Saxon,
-        DotNet,
-        Just
-    }
-
     public class MainViewModel : Observable
     {
         public Notifier Notifier = new Notifier(cfg =>
@@ -49,20 +40,19 @@ namespace JefimsIncredibleXsltTool
             cfg.DisplayOptions.TopMost = false;
             cfg.PositionProvider = new WindowPositionProvider(
                 parentWindow: Application.Current.MainWindow,
-                corner: Corner.TopRight,
+                corner: Corner.BottomRight,
                 offsetX: 10,
                 offsetY: 10);
 
             cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
                 notificationLifetime: TimeSpan.FromSeconds(2),
-                maximumNotificationCount: MaximumNotificationCount.FromCount(3));
+                maximumNotificationCount: MaximumNotificationCount.FromCount(5));
 
             cfg.Dispatcher = Application.Current.Dispatcher;
         });
 
         private Document _document;
-        private XsltProcessingMode _xsltProcessingMode = XsltProcessingMode.Saxon;
-        private const string ProgramName = "Jefim's Incredible XSLT Tool";
+        private const string ProgramName = "XSLT 转换工具";
         public event EventHandler OnTransformFinished;
         public ColorTheme ColorTheme
         {
@@ -80,19 +70,6 @@ namespace JefimsIncredibleXsltTool
             XsltParameters.CollectionChanged += (a, b) => RunTransform();
             Document = new Document();
             XmlToTransformDocument.TextChanged += (a, b) => RunTransform();
-        }
-
-        public List<XsltProcessingMode> XsltProcessingModes => Enum.GetValues(typeof(XsltProcessingMode)).Cast<XsltProcessingMode>().ToList();
-
-        public XsltProcessingMode XsltProcessingMode
-        {
-            get => _xsltProcessingMode;
-            set
-            {
-                _xsltProcessingMode = value;
-                OnPropertyChanged("XsltProcessingMode");
-                RunTransform();
-            }
         }
 
         public string WindowTitle => Document == null ? ProgramName : $"{Document.Display} - {ProgramName}";
@@ -239,21 +216,7 @@ namespace JefimsIncredibleXsltTool
                 try
                 {
                     string result = null;
-                    switch (XsltProcessingMode)
-                    {
-                        case XsltProcessingMode.Saxon:
-                            result = XsltTransformSaxon(xml, xslt, XsltParameters.Where(o => o?.Name != null).ToArray());
-                            break;
-                        case XsltProcessingMode.DotNet:
-                            result = XsltTransformDotNet(xml, xslt, XsltParameters.Where(o => o?.Name != null).ToArray());
-                            break;
-                        case XsltProcessingMode.Just:
-                            result = JsonTransformUsingJustNet(xml, xslt);
-                            break;
-                        default:
-                            MessageBox.Show("Unknown transform method: " + XsltProcessingMode);
-                            break;
-                    }
+                    result = XsltTransformDotNet(xml, xslt, XsltParameters.Where(o => o?.Name != null).ToArray());
 
                     var validation = Validate(result);
                     if (validation != null)
@@ -342,47 +305,6 @@ namespace JefimsIncredibleXsltTool
                     return xmlDocumenOut.ToString().Replace("\n", Environment.NewLine).Trim('\uFEFF');
                 }
             }
-        }
-
-        public static string XsltTransformSaxon(string xmlString, string xslt, XsltParameter[] xsltParameters)
-        {
-            var processor = new Processor();
-            var compiler = processor.NewXsltCompiler();
-            compiler.ErrorList = new List<StaticError>();
-
-            using (var xmlDocumentOut = new StringWriter())
-            using (var xsltReader = new StringReader(xslt))
-            using (var xmlStream = new MemoryStream(Encoding.UTF8.GetBytes(xmlString)))
-            {
-                XsltExecutable executable;
-                try
-                {
-                    executable = compiler.Compile(xsltReader);
-                }
-                catch (Exception ex)
-                {
-                    var errorsStr = string.Join(Environment.NewLine, ((List<StaticError>)compiler.ErrorList).Select(o => $"{o.Message} at line {o.LineNumber}, column {o.ColumnNumber}").Distinct());
-                    if (string.IsNullOrWhiteSpace(errorsStr))
-                    {
-                        throw;
-                    }
-                    throw new Exception(ex.Message, new Exception(errorsStr));
-                }
-
-                var transformer = executable.Load();
-                transformer.SetInputStream(xmlStream, new Uri("file://"));
-                xsltParameters?.ToList().ForEach(x => transformer.SetParameter(new QName(x.Name), new XdmAtomicValue(x.Value)));
-
-                var serializer = processor.NewSerializer();
-                serializer.SetOutputWriter(xmlDocumentOut);
-                transformer.Run(serializer);
-                return xmlDocumentOut.ToString().Replace("\n", Environment.NewLine);
-            }
-        }
-
-        private static string JsonTransformUsingJustNet(string json, string transformer)
-        {
-            return MainWindow.PrettyJson(JsonTransformer.Transform(transformer, json));
         }
     }
 
