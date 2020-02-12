@@ -350,10 +350,7 @@ namespace JefimsIncredibleXsltTool
             {
                 _mainViewModel.Notifier.ShowError("Failed to pretty print: " + ex.Message);
             }
-        }
 
-        private void ButtonPrettyPrintXslt_Click(object sender, RoutedEventArgs e)
-        {
             try
             {
                 SourceXslt.Document.Text = PrettyXml(SourceXslt.Document.Text);

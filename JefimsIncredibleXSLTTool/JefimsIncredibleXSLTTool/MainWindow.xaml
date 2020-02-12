@@ -81,99 +81,75 @@
                     </DataTemplate>
                 </MenuItem.ItemTemplate>
             </MenuItem>
+            <MenuItem Header="格式">
+                <MenuItem Header="PrettyPrint" Click="ButtonPrettyPrint_Click"/>
+            </MenuItem>
         </Menu>
         <Grid Grid.Row="2" Margin="7">
             <Grid.RowDefinitions>
-                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-
-            <StackPanel HorizontalAlignment="Center">
-                <TextBlock Style="{StaticResource MaterialDesignHeadline5TextBlock}" HorizontalAlignment="Center">XML</TextBlock>
-            </StackPanel>
-
-            <StackPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center">
-                <TextBlock Style="{StaticResource MaterialDesignHeadline5TextBlock}" TextWrapping="Wrap" HorizontalAlignment="Center">XSLT</TextBlock>
-            </StackPanel>
-            <StackPanel Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center">
-                <TextBlock TextWrapping="Wrap" Style="{StaticResource MaterialDesignHeadline5TextBlock}">Output</TextBlock>
-            </StackPanel>
-
-           
-            <Grid Grid.Column="0"
-                  Grid.Row="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition Height="auto"/>
-                </Grid.RowDefinitions>
-                <avalonEdit:TextEditor
-                    Margin="0,0,5,0"
-                    Name="SourceXml"
-                    FontFamily="Consolas"
-                    SyntaxHighlighting="XML"
-                    Document="{Binding XmlToTransformDocument}"
-                    ShowLineNumbers="True"
-                    FontSize="11pt"
-                    MouseRightButtonDown="SourceXml_MouseRightButtonDown"
-                    PreviewMouseLeftButtonUp="SourceXml_MouseLeftButtonUp">
-                    <avalonEdit:TextEditor.ContextMenu>
-                        <ContextMenu>
-                            <MenuItem Header="Copy XPath to clipboard" Click="MenuItemCopyXPath_Click"></MenuItem>
-                            <MenuItem Header="Copy XPath to clipboard, no indexes" Click="MenuItemCopyXPathNoIndexes_Click"></MenuItem>
-                            <MenuItem Header="Pretty print" Click="ButtonPrettyPrint_Click"></MenuItem>
-                        </ContextMenu>
-                    </avalonEdit:TextEditor.ContextMenu>
-                </avalonEdit:TextEditor>
-                <StackPanel Grid.Row="1">
-                    <TextBlock x:Name="TextBlockXPath" TextWrapping="Wrap" Style="{StaticResource MaterialDesignBody1TextBlock}"/>
-                    <WrapPanel>
-                        <Button Click="ButtonCopyXPath_Click" Margin="0,2,5,0">Copy XPath</Button>
-                        <Button Click="ButtonCopyXPathNoIndexes_Click" Margin="0,2,5,0">Copy XPath, no indexes</Button>
-                        <Button Click="ButtonPrettyPrint_Click" Margin="0,2,5,0">Pretty print</Button>
-                    </WrapPanel>
-                </StackPanel>
+            <Grid Margin="0,0,0,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <StackPanel>
+                        <TextBlock x:Name="TextBlockXPath" TextWrapping="Wrap" Style="{StaticResource MaterialDesignBody1TextBlock}"/>
+                        <WrapPanel>
+                            <Button Click="ButtonCopyXPath_Click" Margin="0,2,5,0">Copy XPath</Button>
+                            <Button Click="ButtonCopyXPathNoIndexes_Click" Margin="0,2,5,0">Copy XPath, no indexes</Button>
+                            <TextBlock Margin="5,0,0,0" Text="XML内容" Style="{StaticResource MaterialDesignHeadline5TextBlock}"/>
+                        </WrapPanel>
+                    </StackPanel>
+                    <avalonEdit:TextEditor Grid.Row="1"
+                        Margin="0,0,5,0"
+                        Name="SourceXml"
+                        FontFamily="Consolas"
+                        SyntaxHighlighting="XML"
+                        Document="{Binding XmlToTransformDocument}"
+                        ShowLineNumbers="True"
+                        FontSize="11pt"
+                        MouseRightButtonDown="SourceXml_MouseRightButtonDown"
+                        PreviewMouseLeftButtonUp="SourceXml_MouseLeftButtonUp">
+                    </avalonEdit:TextEditor>
+                </Grid>
+                <GridSplitter Grid.Column="0" Width="5"/>
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <StackPanel HorizontalAlignment="Center">
+                        <TextBlock Text="XSLT代码" Style="{StaticResource MaterialDesignHeadline5TextBlock}"/>
+                    </StackPanel>
+                    <avalonEdit:TextEditor Grid.Row="1"
+                        Name="SourceXslt"
+                        FontFamily="Consolas"
+                        SyntaxHighlighting="XML"
+                        FontSize="11pt"
+                        Document="{Binding Document.TextDocument}"
+                        ShowLineNumbers="True">
+                    </avalonEdit:TextEditor>
+                </Grid>
             </Grid>
-            <GridSplitter Grid.Column="0" Width="5"
-                Grid.Row="1" />
-
-            <Grid Grid.Column="1"
-                  Grid.Row="1"
-                    Margin="0,0,5,0">
+            <GridSplitter HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="5"/>
+            <Grid Grid.Row="1">
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
                     <RowDefinition/>
-                    <RowDefinition Height="auto"/>
-                </Grid.RowDefinitions>
-                <avalonEdit:TextEditor
-                            Name="SourceXslt"
-                            FontFamily="Consolas"
-                            SyntaxHighlighting="XML"
-                            FontSize="11pt"
-                            Document="{Binding Document.TextDocument}"
-                    ShowLineNumbers="True">
-                    <avalonEdit:TextEditor.ContextMenu>
-                        <ContextMenu>
-                            <MenuItem Header="Pretty print" Click="ButtonPrettyPrintXslt_Click"></MenuItem>
-                        </ContextMenu>
-                    </avalonEdit:TextEditor.ContextMenu>
-                </avalonEdit:TextEditor>
-                <WrapPanel Grid.Row="1">
-                    <Button Click="ButtonPrettyPrintXslt_Click">Pretty print</Button>
-                </WrapPanel>
-            </Grid>
-            <GridSplitter Grid.Column="1" Width="5"
-                Grid.Row="1" />
-            
-            <Grid Grid.Column="2" Grid.Row="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition />
                     <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
-                <avalonEdit:TextEditor
+                <StackPanel HorizontalAlignment="Center">
+                    <TextBlock Text="输出结果:" Style="{StaticResource MaterialDesignHeadline5TextBlock}"/>
+                </StackPanel>
+                <avalonEdit:TextEditor Grid.Row="1"
                     Name="OutputXml"
                     FontFamily="Consolas"
                     SyntaxHighlighting="XML"
@@ -187,9 +163,9 @@
                     FontFamily="Consolas"
                     SyntaxHighlighting="XML"
                     ShowLineNumbers="True"
-                    FontSize="10pt"
+                    FontSize="11pt"
                     Height="150"
-                    Grid.Row="1"
+                    Grid.Row="2"
                     Document="{Binding ErrorsDocument}"
                     Visibility="{Binding ErrorsExist, Converter={StaticResource BoolToVis}}"
                     IsReadOnly="True"/>
