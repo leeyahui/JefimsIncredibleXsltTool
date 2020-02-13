@@ -302,7 +302,15 @@ namespace JefimsIncredibleXsltTool
                 using (var xmlTextWriter = XmlWriter.Create(xmlDocumenOut, myXslTransform.OutputSettings))
                 {
                     myXslTransform.Transform(xmlDocument, argsList, xmlTextWriter);
-                    return xmlDocumenOut.ToString().Replace("\n", Environment.NewLine).Trim('\uFEFF');
+                    var result = xmlDocumenOut.ToString().Trim('\uFEFF');
+                    try
+                    {
+                        return XDocument.Parse(result).ToString();
+                    }
+                    catch (Exception)
+                    {
+                        return result;
+                    }
                 }
             }
         }
