@@ -81,9 +81,6 @@
                     </DataTemplate>
                 </MenuItem.ItemTemplate>
             </MenuItem>
-            <MenuItem Header="格式">
-                <MenuItem Header="PrettyPrint" Click="ButtonPrettyPrint_Click"/>
-            </MenuItem>
         </Menu>
         <Grid Grid.Row="2" Margin="7">
             <Grid.RowDefinitions>
@@ -101,12 +98,16 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <StackPanel>
-                        <TextBlock x:Name="TextBlockXPath" TextWrapping="Wrap" Style="{StaticResource MaterialDesignBody1TextBlock}"/>
-                        <WrapPanel>
-                            <Button Click="ButtonCopyXPath_Click" Margin="0,2,5,0">Copy XPath</Button>
-                            <Button Click="ButtonCopyXPathNoIndexes_Click" Margin="0,2,5,0">Copy XPath, no indexes</Button>
-                            <TextBlock Margin="5,0,0,0" Text="XML内容" Style="{StaticResource MaterialDesignHeadline5TextBlock}"/>
-                        </WrapPanel>
+                        <TextBlock x:Name="TextBlockXPath" TextWrapping="Wrap" Style="{StaticResource MaterialDesignBody2TextBlock}"/>
+                        <Grid>
+                            <WrapPanel>
+                                <Button Click="ButtonCopyXPath_Click" Margin="0,2,5,0">Copy XPath</Button>
+                                <Button Click="ButtonCopyXPathNoIndexes_Click" Margin="0,2,5,0">Copy XPath, no indexes</Button>
+                                <TextBlock Margin="5,0,0,0" Text="XML内容" Style="{StaticResource MaterialDesignHeadline5TextBlock}"/>
+                            </WrapPanel>
+                            <Button Click="ButtonPrettyPrint_Click" HorizontalAlignment="Right">PrettyPrint</Button>
+                        </Grid>
+                      
                     </StackPanel>
                     <avalonEdit:TextEditor Grid.Row="1"
                         Margin="0,0,5,0"
@@ -126,9 +127,24 @@
                         <RowDefinition Height="auto"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <StackPanel HorizontalAlignment="Center">
-                        <TextBlock Text="XSLT代码" Style="{StaticResource MaterialDesignHeadline5TextBlock}"/>
-                    </StackPanel>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="{Binding Document.FilePath}" Style="{StaticResource MaterialDesignBody2TextBlock}"/>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel HorizontalAlignment="Center">
+                                <TextBlock Text="XSLT代码" Style="{StaticResource MaterialDesignHeadline5TextBlock}"/>
+                            </StackPanel>
+                            <Button Click="ButtonPrettyXsltPrint_Click" HorizontalAlignment="Right">PrettyPrint</Button>
+                        </Grid>
+                    </Grid>
+                    
                     <avalonEdit:TextEditor Grid.Row="1"
                         Name="SourceXslt"
                         FontFamily="Consolas"
