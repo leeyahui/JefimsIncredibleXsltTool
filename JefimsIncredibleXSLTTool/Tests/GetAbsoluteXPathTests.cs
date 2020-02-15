@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using JefimsIncredibleXsltTool.Lib;
+using XsltTool.Lib;
 
 namespace Tests
 {

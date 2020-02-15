@@ -36,7 +36,7 @@ Jefim's Incredible XSLT Tool
 
 Jefim's Incredible XSLT Tool 1.2 on saatavilla
 (se mitä tein tuon "Tee mitä haluat päivänä")
-Sijainti: \\lulu\hd\ICC\Burningbuffer\Tools\JefimsIncredibleXsltTool
+Sijainti: \\lulu\hd\ICC\Burningbuffer\Tools\XsltTool
 Changelog:
 * Copy-paste escaped text
 * Ctrl+S, Ctrl+O shortcutit toimii
@@ -94,7 +94,7 @@ GET THE NEW VERSION OF JEFIM'S INCREDIBLE XSLT TOOL! Here's what you'll get:
 * What other features do you need when you get an ICON?! Hell yeah! ICONS RULE!
 * Feature request tuli @Tomi :lta. Kiitos Tomi! 😄
 
-Available now on lulu: \lulu\hd\ICC\Burningbuffer\Tools\JefimsIncredibleXsltTool\1.5
+Available now on lulu: \lulu\hd\ICC\Burningbuffer\Tools\XsltTool\1.5
 
 PS Due to lack of funds there will be NO coffee and cake party to celebrate the release of Jefim's Incredible XSLT Tool version 1.5. But feel free to snack on these virtual analogues >>>>
 ☕️ ☕️ ☕️ ☕️ ☕️ ☕️ ☕️ ☕️ ☕️ ☕️ ☕️

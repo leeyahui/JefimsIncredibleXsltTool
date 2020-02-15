@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Media;
 
-namespace JefimsIncredibleXsltTool.Lib
+namespace XsltTool.Lib
 {
     public class ColorTheme
     {
@@ -29,7 +29,7 @@ namespace JefimsIncredibleXsltTool.Lib
         public static readonly ColorTheme DarkColorTheme = new ColorTheme
         {
             Id = "VS Dark",
-            AvalonXmlHighlightResourceName = "JefimsIncredibleXsltTool.Resources.AvalonXmlDarkTheme.xml",
+            AvalonXmlHighlightResourceName = "XsltTool.Resources.AvalonXmlDarkTheme.xml",
             IconSymbol = "👻",
             IconHighlightColor = Colors.PaleTurquoise,
             Background = BrushFromHex("#2D2D30"),
@@ -53,7 +53,7 @@ namespace JefimsIncredibleXsltTool.Lib
         public static readonly ColorTheme LightColorTheme = new ColorTheme
         {
             Id = "VS Light",
-            AvalonXmlHighlightResourceName = "JefimsIncredibleXsltTool.Resources.AvalonXmlLightTheme.xml",
+            AvalonXmlHighlightResourceName = "XsltTool.Resources.AvalonXmlLightTheme.xml",
             IconSymbol = "💡",
             IconHighlightColor = Colors.Gold,
             Background = BrushFromHex("#EEEEF2"),

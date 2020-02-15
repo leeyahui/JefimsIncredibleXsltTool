@@ -57,13 +57,13 @@
     <Compile Include="TagCloserTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\JefimsIncredibleXsltTool\XsltTool.csproj">
-      <Project>{a52ec907-2c6c-4438-a73d-06db1327cb8b}</Project>
-      <Name>XsltTool</Name>
-    </ProjectReference>
+    <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <ProjectReference Include="..\XsltTool\XsltTool.csproj">
+      <Project>{A52EC907-2C6C-4438-A73D-06DB1327CB8B}</Project>
+      <Name>XsltTool</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JefimsIncredibleXsltTool.Lib
+namespace XsltTool.Lib
 {
     public class TagCloser
     {
