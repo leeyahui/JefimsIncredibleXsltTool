@@ -15,6 +15,10 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Schema;
 using System.Xml.Xsl;
+using ToastNotifications;
+using ToastNotifications.Lifetime;
+using ToastNotifications.Position;
+using ToastNotifications.Messages;
 
 namespace XsltTool
 {
@@ -31,21 +35,21 @@ namespace XsltTool
 
     public class MainViewModel : Observable
     {
-        //public Notifier Notifier = new Notifier(cfg =>
-        //{
-        //    cfg.DisplayOptions.TopMost = false;
-        //    cfg.PositionProvider = new WindowPositionProvider(
-        //        parentWindow: Application.Current.MainWindow,
-        //        corner: Corner.BottomRight,
-        //        offsetX: 10,
-        //        offsetY: 10);
+        public Notifier Notifier = new Notifier(cfg =>
+        {
+            cfg.DisplayOptions.TopMost = false;
+            cfg.PositionProvider = new WindowPositionProvider(
+                parentWindow: Application.Current.MainWindow,
+                corner: Corner.BottomRight,
+                offsetX: 10,
+                offsetY: 10);
 
-        //    cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
-        //        notificationLifetime: TimeSpan.FromSeconds(2),
-        //        maximumNotificationCount: MaximumNotificationCount.FromCount(5));
+            cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
+                notificationLifetime: TimeSpan.FromSeconds(2),
+                maximumNotificationCount: MaximumNotificationCount.FromCount(5));
 
-        //    cfg.Dispatcher = Application.Current.Dispatcher;
-        //});
+            cfg.Dispatcher = Application.Current.Dispatcher;
+        });
 
         private Document _document;
         private const string ProgramName = "XSLT 转换工具";
@@ -131,7 +135,7 @@ namespace XsltTool
         {
             if (Document == null)
             {
-                //Notifier.ShowWarning("No open file. This should not have happened :( Apologies.");
+                Notifier.ShowWarning("No open file. This should not have happened :( Apologies.");
                 return;
             }
 
@@ -151,12 +155,12 @@ namespace XsltTool
 
             try
             {
-                //if (Document.Save())
-                //Notifier.ShowSuccess("Saved! ☃");
+                if (Document.Save())
+                    Notifier.ShowSuccess("Saved! ☃");
             }
             catch (Exception ex)
             {
-                //Notifier.ShowError(ex.ToString());
+                Notifier.ShowError(ex.ToString());
             }
         }
         public List<ColorTheme> ColorThemes { get { return ColorTheme.ColorThemes; } }

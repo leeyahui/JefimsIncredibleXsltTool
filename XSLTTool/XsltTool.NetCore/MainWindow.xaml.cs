@@ -15,8 +15,8 @@ using System.Windows;
 using System.Windows.Input;
 using System.Xml;
 using System.Xml.Linq;
+using ToastNotifications.Messages;
 using XsltTool.NetCore;
-//using ToastNotifications.Messages;
 
 namespace XsltTool
 {
@@ -280,11 +280,11 @@ namespace XsltTool
             {
                 var xpath = GetXmlXPath(true);
                 Clipboard.SetText(xpath);
-                //_mainViewModel.Notifier.ShowSuccess("XPath copied. \\o/");
+                _mainViewModel.Notifier.ShowSuccess("XPath copied. \\o/");
             }
             catch (Exception ex)
             {
-                //_mainViewModel.Notifier.ShowError("Failed to copy XPath: " + ex.Message);
+                _mainViewModel.Notifier.ShowError("Failed to copy XPath: " + ex.Message);
             }
         }
 
@@ -294,11 +294,11 @@ namespace XsltTool
             {
                 var xpath = GetXmlXPath(false);
                 Clipboard.SetText(xpath);
-                //_mainViewModel.Notifier.ShowSuccess("XPath copied. Yay!");
+                _mainViewModel.Notifier.ShowSuccess("XPath copied. Yay!");
             }
             catch (Exception ex)
             {
-                //_mainViewModel.Notifier.ShowError("Failed to copy XPath: " + ex.Message);
+                _mainViewModel.Notifier.ShowError("Failed to copy XPath: " + ex.Message);
             }
         }
 
@@ -318,11 +318,11 @@ namespace XsltTool
             {
                 var xpath = GetXmlXPath(false);
                 Clipboard.SetText(xpath);
-                //_mainViewModel.Notifier.ShowSuccess("XPath copied. Wohoo!");
+                _mainViewModel.Notifier.ShowSuccess("XPath copied. Wohoo!");
             }
             catch (Exception ex)
             {
-                //_mainViewModel.Notifier.ShowError("Failed to copy XPath: " + ex.Message);
+                _mainViewModel.Notifier.ShowError("Failed to copy XPath: " + ex.Message);
             }
         }
 
@@ -332,11 +332,11 @@ namespace XsltTool
             {
                 var xpath = GetXmlXPath(true);
                 Clipboard.SetText(xpath);
-                //_mainViewModel.Notifier.ShowSuccess("XPath copied. \\o/");
+                _mainViewModel.Notifier.ShowSuccess("XPath copied. \\o/");
             }
             catch (Exception ex)
             {
-                //_mainViewModel.Notifier.ShowError("Failed to copy XPath: " + ex.Message);
+                _mainViewModel.Notifier.ShowError("Failed to copy XPath: " + ex.Message);
             }
         }
 
@@ -345,11 +345,11 @@ namespace XsltTool
             try
             {
                 SourceXml.Document.Text = PrettyXml(SourceXml.Document.Text);
-                //_mainViewModel.Notifier.ShowSuccess("Uuuhh, so pretty!");
+                _mainViewModel.Notifier.ShowSuccess("Uuuhh, so pretty!");
             }
             catch (Exception ex)
             {
-                //_mainViewModel.Notifier.ShowError("Failed to pretty print: " + ex.Message);
+                _mainViewModel.Notifier.ShowError("Failed to pretty print: " + ex.Message);
             }
         }
 
@@ -358,11 +358,11 @@ namespace XsltTool
             try
             {
                 SourceXslt.Document.Text = PrettyXml(SourceXslt.Document.Text);
-                //_mainViewModel.Notifier.ShowSuccess("It's beautiful!");
+                _mainViewModel.Notifier.ShowSuccess("It's beautiful!");
             }
             catch (Exception ex)
             {
-                //_mainViewModel.Notifier.ShowError("Failed to pretty print: " + ex.Message);
+                _mainViewModel.Notifier.ShowError("Failed to pretty print: " + ex.Message);
             }
         }
 

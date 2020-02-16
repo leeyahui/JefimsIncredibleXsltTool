@@ -59,7 +59,7 @@
             <MenuItem Header="文件(_F)">
                 <MenuItem Header="新建" Command="New" />
                 <MenuItem Header="打开" Command="Open" />
-                <MenuItem Header="保存" Command="Save" />
+                <MenuItem Header="保存"  Command="Save" />
             </MenuItem>
             <MenuItem Header="主题(_C)" ItemsSource="{Binding ColorThemes}">
                 <MenuItem.ItemContainerStyle>
@@ -107,7 +107,7 @@
                             </WrapPanel>
                             <Button Click="ButtonPrettyPrint_Click" HorizontalAlignment="Right">PrettyPrint</Button>
                         </Grid>
-                      
+
                     </StackPanel>
                     <avalonEdit:TextEditor Grid.Row="1"
                         Margin="0,0,5,0"
@@ -144,7 +144,7 @@
                             <Button Click="ButtonPrettyXsltPrint_Click" HorizontalAlignment="Right">PrettyPrint</Button>
                         </Grid>
                     </Grid>
-                    
+
                     <avalonEdit:TextEditor Grid.Row="1"
                         Name="SourceXslt"
                         FontFamily="Consolas"
