@@ -1,0 +1,67 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>Resources\xml.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\AvalonXmlDarkTheme.xml" />
+    <None Remove="Resources\AvalonXmlLightTheme.xml" />
+    <None Remove="Resources\cursor.cur" />
+    <None Remove="Resources\splash.png" />
+    <None Remove="Resources\xml.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\AvalonXmlDarkTheme.xml" />
+    <EmbeddedResource Include="Resources\AvalonXmlLightTheme.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AvalonEdit" Version="6.0.1" />
+    <PackageReference Include="MaterialDesignColors" Version="1.2.2" />
+    <PackageReference Include="MaterialDesignThemes" Version="3.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\cursor.cur">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\xml.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SplashScreen Include="Resources\splash.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="MainWindow.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+</Project>
